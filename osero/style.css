@@ -1,33 +1,37 @@
-html,
-body {
+html, body {
     margin: 0;
     padding: 0;
-}
-
-canvas {
+  }
+  canvas {
     display: block;
-}
-
-div#board {
+  }
+  div#board{
     position: relative;
     width: 256px;
     height: 256px;
     background-color: black;
-}
-
-div.sq {
+  }
+  div.sq{
     position: absolute;
     width: 28px;
     height: 28px;
     background-color: green;
-}
-
-div.sq div.disc {
+  }
+  div.sq div.disc {
     position: absolute;
     left: 2px;
     top: 2px;
     width: 24px;
     height: 24px;
-    border-radius: 100%;
+    border-radius: 24px;
     background-color: white;
-}
+  }
+  div#logarea{
+    margin: 8px 0;
+    padding: 4px;
+    border: 1px solid black;
+    white-space: pre;
+    width: 248px;
+    height: 120px;
+    overflow-y: scroll;
+  }

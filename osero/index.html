@@ -11,6 +11,18 @@
 
     <body>
         <div id="board"></div>
+        <input type="button" value="最初" onclick="unmove_all()">
+        <input type="button" value="戻す" onclick="unmove()">
+        <input type="button" value="進む" onclick="forward()">
+        <input type="button" value="最後" onclick="forward_all()">
+        <input type="button" value="新規" onclick="init()">
+        <br />
+        <select name="mode" onchange="changeMode()" id="mode">
+            <option value="0">●YOU vs ○YOU</option>
+            <option value="1">●COM vs ○YOU</option>
+            <option value="2">●YOU vs ○COM</option>
+        </select>
+        <div id="logarea"></div>
         <script src="sketch.js"></script>
     </body>
 
