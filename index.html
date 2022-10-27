@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <!-- <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script> -->
+        <script src="./script.js" defer></script>
+    </head>
+
+    <body class="h-screen overflow-hidden flex items-center justify-center relative" style="background: #edf2f7;">
+
+        <!-- ステータスエリア -->
+        <div class="absolute top-4 right-4 flex w-full flex-col items-center space-y-4 sm:items-end">
+            <div class="pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
+                <div class="p-4">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0">
+                            <svg class="h-6 w-6 text-green-400" x-description="Heroicon name: outline/check-circle" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-3 w-0 flex-1 pt-0.5">
+                            <p class="text-sm font-medium text-gray-900">今日の成績</p>
+                            <p class="mt-1 text-sm text-gray-500" id="todays-grades"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
+                <div class="p-4">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0">
+                            <svg class="h-6 w-6 text-green-400" x-description="Heroicon name: outline/check-circle" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-3 w-0 flex-1 pt-0.5">
+                            <p class="text-sm font-medium text-gray-900">今日の勝率</p>
+                            <p class="mt-1 text-sm text-gray-500" id="todays-grades"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="min-h-screen p-3 relative">
+            <div class="w-96 mx-auto" style="scroll-snap-type: x mandatory;">
+                <!-- first -->
+                <div class="">
+                    <input class="sr-only peer" type="radio" name="carousel" id="carousel-1" checked />
+                    <!-- content #1 -->
+                    <div
+                         class="w-96 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg transition-all duration-300 opacity-0 peer-checked:opacity-100 peer-checked:z-10 z-0">
+                        <img class="rounded-t-lg w-96 h-64" src="./images/2.jpg" alt="" />
+                        <div class="py-4 px-8">
+                            <h1 class="hover:cursor-pointer mt-2 text-gray-900 font-bold text-2xl tracking-tight">John Smith</h1>
+                            <p class="hover:cursor-pointer py-3 mb-2 text-gray-600 leading-6">
+                                やぁ、また君か。今日もじゃんけんをするのかい？ いいだろう、受けて立つよ！
+                            </p>
+                            <div class="flex justify-center gap-6 mb-6">
+                                <img
+                                     onclick="R_Click(0);"
+                                     class="inline-block cursor-pointer border-4 border-sky-300 hover:border-sky-400 bg-sky-50 hover:bg-sky-100 h-20 w-20 rounded-full" src="./images/case-1.png" alt="">
+                                <img
+                                     onclick="R_Click(1);"
+                                     class="inline-block cursor-pointer border-4 border-pink-300 hover:border-pink-400 bg-pink-50 hover:bg-pink-100 h-20 w-20 rounded-full" src="./images/case-2.png" alt="">
+                                <img
+                                     onclick="R_Click(2);"
+                                     class="inline-block cursor-pointer border-4 border-yellow-300 hover:border-yellow-400 bg-yellow-50 hover:bg-yellow-100 h-20 w-20 rounded-full" src="./images/case-3.png" alt="">
+                            </div>
+
+                            <div class="border-2 rounded-md bg-gray-50 border-gray-200 py-2 px-4">
+                                <p class="text-gray-500">status :</p>
+                                <p class="text-gray-600" id="Rejan1">&nbsp;</p>
+                                <p class="text-gray-600" id="Rejan2">&nbsp;</p>
+                            </div>
+
+                            <div class="hover:cursor-pointer py-3 text-gray-600 leading-6">
+                                <button type="submit" class="accordionBtn flex w-full justify-center rounded-md font-bold border border-transparent bg-indigo-600 py-2 px-4 text-sm text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">じゃんけんバトル！</button>
+                            </div>
+
+                        </div>
+                        <!-- controls -->
+                        <div class="absolute top-1/2 w-full flex justify-between z-20">
+                            <label for="carousel-3" class="inline-block text-red-600 cursor-pointer -translate-x-5 bg-white rounded-full shadow-md active:translate-y-0.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.707-10.293a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L9.414 11H13a1 1 0 100-2H9.414l1.293-1.293z" clip-rule="evenodd" />
+                                </svg>
+                            </label>
+                            <label for="carousel-2" class="inline-block text-red-600 cursor-pointer translate-x-5 bg-white rounded-full shadow-md active:translate-y-0.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- second -->
+                <div class="">
+                    <input class="sr-only peer" type="radio" name="carousel" id="carousel-2" />
+                    <!-- content #2 -->
+                    <div
+                         class="w-96 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg transition-all duration-300 opacity-0 peer-checked:opacity-100 peer-checked:z-10 z-0">
+                        <img class="rounded-t-lg w-96 h-64 bg-cover" src="./images/1.jpg" alt="" />
+                        <div class="py-4 px-8">
+                            <h1 class="hover:cursor-pointer mt-2 text-gray-900 font-bold text-2xl tracking-tight">Sister Emilly</h1>
+                            <p class="hover:cursor-pointer py-3 text-gray-600 leading-6">
+                                やぁ、また君か。今日もじゃんけんをするのかね？ いいだろう、受けて立つよ！
+                            </p>
+                            <div class="flex justify-center gap-6">
+                                <img
+                                     onclick="R_Click_2(0);"
+                                     class="inline-block cursor-pointer border-4 border-sky-300 hover:border-sky-400 bg-sky-50 hover:bg-sky-100 h-20 w-20 rounded-full" src="./images/case-1.png" alt="">
+                                <img
+                                     onclick="R_Click_2(1);"
+                                     class="inline-block cursor-pointer border-4 border-pink-300 hover:border-pink-400 bg-pink-50 hover:bg-pink-100 h-20 w-20 rounded-full" src="./images/case-2.png" alt="">
+                                <img
+                                     onclick="R_Click_2(2);"
+                                     class="inline-block cursor-pointer border-4 border-yellow-300 hover:border-yellow-400 bg-yellow-50 hover:bg-yellow-100 h-20 w-20 rounded-full" src="./images/case-3.png" alt="">
+                            </div>
+                            <br />
+                            <div id="Rejan1_2"></div>
+                            <div id="Rejan2_2"></div>
+                            <div class="hover:cursor-pointer py-3 text-gray-600 leading-6">
+                                <button type="submit" class="accordionBtn flex w-full justify-center rounded-md font-bold border border-transparent bg-indigo-600 py-2 px-4 text-sm text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">じゃんけんバトル！</button>
+                            </div>
+                        </div>
+                        <!-- controls -->
+                        <div class="absolute top-1/2 w-full flex justify-between z-20">
+                            <label for="carousel-1" class="inline-block text-blue-600 cursor-pointer -translate-x-5 bg-white rounded-full shadow-md active:translate-y-0.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.707-10.293a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L9.414 11H13a1 1 0 100-2H9.414l1.293-1.293z" clip-rule="evenodd" />
+                                </svg>
+                            </label>
+                            <label for="carousel-3" class="inline-block text-blue-600 cursor-pointer translate-x-5 bg-white rounded-full shadow-md active:translate-y-0.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- three -->
+                <div class="">
+                    <input class="sr-only peer" type="radio" name="carousel" id="carousel-3" />
+                    <!-- content #3 -->
+                    <div
+                         class="w-96 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg transition-all duration-300 opacity-0 peer-checked:opacity-100 peer-checked:z-10 z-0">
+                        <img class="rounded-t-lg w-96 h-64" src="./images/3.jpg" alt="" />
+                        <div class="py-4 px-8">
+                            <h1 class="mt-2 text-gray-900 font-bold text-2xl tracking-tight">Master Bob</h1>
+                            <p class="py-3 text-gray-600 leading-6">
+                                やぁ、また君か。今日もじゃんけんをするのかね？ いいだろう、受けて立つよ！
+                            </p>
+                            <div class="flex justify-center gap-6">
+                                <img
+                                     onclick="R_Click_3(0);"
+                                     class="inline-block cursor-pointer border-4 border-sky-300 hover:border-sky-400 bg-sky-50 hover:bg-sky-100 h-20 w-20 rounded-full" src="./images/case-1.png" alt="">
+                                <img
+                                     onclick="R_Click_3(1);"
+                                     class="inline-block cursor-pointer border-4 border-pink-300 hover:border-pink-400 bg-pink-50 hover:bg-pink-100 h-20 w-20 rounded-full" src="./images/case-2.png" alt="">
+                                <img
+                                     onclick="R_Click_3(2);"
+                                     class="inline-block cursor-pointer border-4 border-yellow-300 hover:border-yellow-400 bg-yellow-50 hover:bg-yellow-100 h-20 w-20 rounded-full" src="./images/case-3.png" alt="">
+                            </div>
+                            <br />
+                            <div id="Rejan1_3"></div>
+                            <div id="Rejan2_3"></div>
+                            <div class="hover:cursor-pointer py-3 text-gray-600 leading-6">
+                                <button type="submit" class="accordionBtn flex w-full justify-center rounded-md font-bold border border-transparent bg-indigo-600 py-2 px-4 text-sm text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">じゃんけんバトル！</button>
+                            </div>
+                        </div>
+                        <!-- controls -->
+                        <div class="absolute top-1/2 w-full flex justify-between z-20">
+                            <label for="carousel-2" class="inline-block text-yellow-600 cursor-pointer -translate-x-5 bg-white rounded-full shadow-md active:translate-y-0.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.707-10.293a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L9.414 11H13a1 1 0 100-2H9.414l1.293-1.293z" clip-rule="evenodd" />
+                                </svg>
+                            </label>
+                            <label for="carousel-1" class="inline-block text-yellow-600 cursor-pointer translate-x-5 bg-white rounded-full shadow-md active:translate-y-0.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </body>
+
+</html>
+</body>
+
+</html>

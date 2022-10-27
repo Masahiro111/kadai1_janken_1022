@@ -19,6 +19,9 @@ toastr.options = {
 // ターンを示す変数
 let oddTurn = true;
 
+// attack flag
+let attackFlag = 0;
+
 /*****************************************
  * イベント設定
  *****************************************/
@@ -26,8 +29,21 @@ $(function () {
     // 初期化ボタンを押したときのイベント
     $("#btn-initialize").click(initializeEvent);
 
+    // アタックじゃんけんチャンスのイベント
+    $(".attack-janken").click(function () {
+        attackChance();
+    });
+
     // マスをクリックしたときのイベント
     $(".square").click(function () {
+
+        if (attackFlag == 1) {
+            attackFlag = 0;
+            alert(1);
+            $(".square").removeClass("can-attack-select");
+        }
+
+        // クリックした配置にピースが置けない場合
         if (!canSelect($(this))) {
             return;
         }
@@ -37,6 +53,34 @@ $(function () {
     // 盤面を初期化する
     initializeEvent();
 });
+
+function attackChance() {
+    attackFlag = 1;
+
+    // 選択可否を設定する
+    $(".square").removeClass("can-select");
+    $(".square").removeClass("can-attack-select");
+    $(".square").removeClass("cant-select");
+    $(".square").each(function (index, elem) {
+        if (canAttackSelect($(elem))) {
+            $(elem).addClass("can-attack-select");
+            $(elem).removeClass("cant-select");
+        }
+    });
+}
+function canAttackSelect($square) {
+    // 既にピースが設定されている場合で 相手の色であれば真
+    if (getTurnString() == "white") {
+        if ($square.hasClass("selected") && ($square.data("owner") == "black")) {
+            return true
+        }
+    } else if (getTurnString() == "black") {
+        if ($square.hasClass("selected") && ($square.data("owner") == "white")) {
+            return true
+        }
+    }
+    return false;
+}
 
 /**
  * マス目クリックイベント

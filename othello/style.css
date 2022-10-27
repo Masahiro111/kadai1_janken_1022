@@ -70,6 +70,10 @@ body {
     background-color: green;
 }
 
+.square.can-attack-select {
+    border: 1px solid yellow;
+}
+
 .toast,
 #btn-initialize {
     font-size: 1.6rem;
