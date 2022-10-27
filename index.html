@@ -7,8 +7,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="https://cdn.tailwindcss.com"></script>
         <!-- <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script> -->
-        <script src="./script.js" defer></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js" defer></script>
+        <script src="./script.js" defer></script>
     </head>
 
     <body class="h-screen overflow-hidden flex items-center justify-center relative" style="background: #edf2f7;">
@@ -27,7 +27,7 @@
                         </div>
                         <div class="ml-3 w-0 flex-1 pt-0.5">
                             <p class="text-sm font-medium text-gray-900">今日の成績</p>
-                            <p class="mt-1 text-sm text-gray-500" id="todays-grades"></p>
+                            <p class="mt-1 text-sm text-gray-500" id="todays-grades">全 0 試合 0 勝 0敗 0分 <br>連勝記録：0 連勝！</p>
                         </div>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                         </div>
                         <div class="ml-3 w-0 flex-1 pt-0.5">
                             <p class="text-sm font-medium text-gray-900">今日の勝率</p>
-                            <p class="mt-1 text-sm text-gray-500" id="todays-win-rate"></p>
+                            <p class="mt-1 text-sm text-gray-500" id="todays-win-rate">勝率 0 %</p>
                             <div class="w-full">
                                 <canvas id="canvas"></canvas>
                             </div>
@@ -52,6 +52,45 @@
                     </div>
                 </div>
             </div>
+
+            <!-- 自分の出し手の回数 -->
+            <!-- <div class="pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
+                <div class="p-4">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0">
+                            <svg class="h-6 w-6 text-green-400" x-description="Heroicon name: outline/check-circle" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-3 w-0 flex-1 pt-0.5">
+                            <p class="text-sm font-medium text-gray-900">相手の出し手の回数</p>
+                            <div class="w-full flex justify-center items-start p-3">
+                                <canvas class="w-2/3" id="comPatarnChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+
+            <!-- 相手の出し手の割合 -->
+            <div class="pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
+                <div class="p-4">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0">
+                            <svg class="h-6 w-6 text-green-400" x-description="Heroicon name: outline/check-circle" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-3 w-0 flex-1 pt-0.5">
+                            <p class="text-sm font-medium text-gray-900">相手の出し手の回数</p>
+                            <div class="w-full flex justify-center items-start p-3">
+                                <canvas class="w-2/3" id="comPatarnChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
 
