@@ -8,12 +8,15 @@
         <script src="https://cdn.tailwindcss.com"></script>
         <!-- <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script> -->
         <script src="./script.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js" defer></script>
     </head>
 
     <body class="h-screen overflow-hidden flex items-center justify-center relative" style="background: #edf2f7;">
 
         <!-- ステータスエリア -->
         <div class="absolute top-4 right-4 flex w-full flex-col items-center space-y-4 sm:items-end">
+
+            <!-- show rate -->
             <div class="pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
                 <div class="p-4">
                     <div class="flex items-start">
@@ -30,6 +33,7 @@
                 </div>
             </div>
 
+            <!-- show win rate -->
             <div class="pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
                 <div class="p-4">
                     <div class="flex items-start">
@@ -40,7 +44,10 @@
                         </div>
                         <div class="ml-3 w-0 flex-1 pt-0.5">
                             <p class="text-sm font-medium text-gray-900">今日の勝率</p>
-                            <p class="mt-1 text-sm text-gray-500" id="todays-grades"></p>
+                            <p class="mt-1 text-sm text-gray-500" id="todays-win-rate"></p>
+                            <div class="w-full">
+                                <canvas id="canvas"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -64,34 +71,30 @@
                             </p>
                             <div class="flex justify-center gap-6 mb-6">
                                 <img
-                                     onclick="R_Click(0);"
+                                     onclick="R_Click(0, 0);"
                                      class="inline-block cursor-pointer border-4 border-sky-300 hover:border-sky-400 bg-sky-50 hover:bg-sky-100 h-20 w-20 rounded-full" src="./images/case-1.png" alt="">
                                 <img
-                                     onclick="R_Click(1);"
+                                     onclick="R_Click(1, 0);"
                                      class="inline-block cursor-pointer border-4 border-pink-300 hover:border-pink-400 bg-pink-50 hover:bg-pink-100 h-20 w-20 rounded-full" src="./images/case-2.png" alt="">
                                 <img
-                                     onclick="R_Click(2);"
+                                     onclick="R_Click(2, 0);"
                                      class="inline-block cursor-pointer border-4 border-yellow-300 hover:border-yellow-400 bg-yellow-50 hover:bg-yellow-100 h-20 w-20 rounded-full" src="./images/case-3.png" alt="">
                             </div>
 
                             <div class="border-2 rounded-md bg-gray-50 border-gray-200 py-2 px-4 mb-4">
                                 <p class="text-gray-500 pb-2">status :</p>
-                                <p class="text-gray-500" id="Rejan1">じゃんけんボタンをクリックしてください</p>
-                                <p class="text-gray-500" id="Rejan2">&nbsp;</p>
+                                <p class="text-gray-500" id="Rejan1_0">じゃんけんボタンをクリックしてください</p>
+                                <p class="text-gray-500" id="Rejan2_0">&nbsp;</p>
                             </div>
-
-                            <!-- <div class="hover:cursor-pointer py-3 text-gray-600 leading-6">
-                                <button type="submit" class="accordionBtn flex w-full justify-center rounded-md font-bold border border-transparent bg-indigo-600 py-2 px-4 text-sm text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">じゃんけんバトル！</button>
-                            </div> -->
                         </div>
                         <!-- controls -->
                         <div class="absolute top-1/2 w-full flex justify-between z-20">
-                            <label for="carousel-3" class="inline-block text-red-600 cursor-pointer -translate-x-5 bg-white rounded-full shadow-md active:translate-y-0.5">
+                            <label for="carousel-3" class="inline-block text-blue-600 cursor-pointer -translate-x-5 bg-white rounded-full shadow-md active:translate-y-0.5">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.707-10.293a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L9.414 11H13a1 1 0 100-2H9.414l1.293-1.293z" clip-rule="evenodd" />
                                 </svg>
                             </label>
-                            <label for="carousel-2" class="inline-block text-red-600 cursor-pointer translate-x-5 bg-white rounded-full shadow-md active:translate-y-0.5">
+                            <label for="carousel-2" class="inline-block text-blue-600 cursor-pointer translate-x-5 bg-white rounded-full shadow-md active:translate-y-0.5">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd" />
                                 </svg>
@@ -110,35 +113,35 @@
                         <img class="rounded-t-lg w-96 h-64 bg-cover" src="./images/1.jpg" alt="" />
                         <div class="py-4 px-8">
                             <h1 class="hover:cursor-pointer mt-2 text-gray-900 font-bold text-2xl tracking-tight">Sister Emilly</h1>
-                            <p class="hover:cursor-pointer py-3 text-gray-600 leading-6">
-                                やぁ、また君か。今日もじゃんけんをするのかね？ いいだろう、受けて立つよ！
+                            <p class="hover:cursor-pointer py-3 mb-2 text-gray-600 leading-6">
+                                やぁ、また君か。今日もじゃんけんをするのかい？ いいだろう、受けて立つよ！
                             </p>
-                            <div class="flex justify-center gap-6">
+                            <div class="flex justify-center gap-6 mb-6">
                                 <img
-                                     onclick="R_Click_2(0);"
+                                     onclick="R_Click(0, 1);"
                                      class="inline-block cursor-pointer border-4 border-sky-300 hover:border-sky-400 bg-sky-50 hover:bg-sky-100 h-20 w-20 rounded-full" src="./images/case-1.png" alt="">
                                 <img
-                                     onclick="R_Click_2(1);"
+                                     onclick="R_Click(1, 1);"
                                      class="inline-block cursor-pointer border-4 border-pink-300 hover:border-pink-400 bg-pink-50 hover:bg-pink-100 h-20 w-20 rounded-full" src="./images/case-2.png" alt="">
                                 <img
-                                     onclick="R_Click_2(2);"
+                                     onclick="R_Click(2, 1);"
                                      class="inline-block cursor-pointer border-4 border-yellow-300 hover:border-yellow-400 bg-yellow-50 hover:bg-yellow-100 h-20 w-20 rounded-full" src="./images/case-3.png" alt="">
                             </div>
-                            <br />
-                            <div id="Rejan1_2"></div>
-                            <div id="Rejan2_2"></div>
-                            <div class="hover:cursor-pointer py-3 text-gray-600 leading-6">
-                                <button type="submit" class="accordionBtn flex w-full justify-center rounded-md font-bold border border-transparent bg-indigo-600 py-2 px-4 text-sm text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">じゃんけんバトル！</button>
+
+                            <div class="border-2 rounded-md bg-gray-50 border-gray-200 py-2 px-4 mb-4">
+                                <p class="text-gray-500 pb-2">status :</p>
+                                <p class="text-gray-500" id="Rejan1_1">じゃんけんボタンをクリックしてください</p>
+                                <p class="text-gray-500" id="Rejan2_1">&nbsp;</p>
                             </div>
                         </div>
                         <!-- controls -->
                         <div class="absolute top-1/2 w-full flex justify-between z-20">
-                            <label for="carousel-1" class="inline-block text-blue-600 cursor-pointer -translate-x-5 bg-white rounded-full shadow-md active:translate-y-0.5">
+                            <label for="carousel-1" class="inline-block text-red-600 cursor-pointer -translate-x-5 bg-white rounded-full shadow-md active:translate-y-0.5">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.707-10.293a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L9.414 11H13a1 1 0 100-2H9.414l1.293-1.293z" clip-rule="evenodd" />
                                 </svg>
                             </label>
-                            <label for="carousel-3" class="inline-block text-blue-600 cursor-pointer translate-x-5 bg-white rounded-full shadow-md active:translate-y-0.5">
+                            <label for="carousel-3" class="inline-block text-red-600 cursor-pointer translate-x-5 bg-white rounded-full shadow-md active:translate-y-0.5">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd" />
                                 </svg>
@@ -157,25 +160,25 @@
                         <img class="rounded-t-lg w-96 h-64" src="./images/3.jpg" alt="" />
                         <div class="py-4 px-8">
                             <h1 class="mt-2 text-gray-900 font-bold text-2xl tracking-tight">Master Bob</h1>
-                            <p class="py-3 text-gray-600 leading-6">
-                                やぁ、また君か。今日もじゃんけんをするのかね？ いいだろう、受けて立つよ！
+                            <p class="hover:cursor-pointer py-3 mb-2 text-gray-600 leading-6">
+                                やぁ、また君か。今日もじゃんけんをするのかい？ いいだろう、受けて立つよ！
                             </p>
-                            <div class="flex justify-center gap-6">
+                            <div class="flex justify-center gap-6 mb-6">
                                 <img
-                                     onclick="R_Click_3(0);"
+                                     onclick="R_Click(0, 2);"
                                      class="inline-block cursor-pointer border-4 border-sky-300 hover:border-sky-400 bg-sky-50 hover:bg-sky-100 h-20 w-20 rounded-full" src="./images/case-1.png" alt="">
                                 <img
-                                     onclick="R_Click_3(1);"
+                                     onclick="R_Click(1, 2);"
                                      class="inline-block cursor-pointer border-4 border-pink-300 hover:border-pink-400 bg-pink-50 hover:bg-pink-100 h-20 w-20 rounded-full" src="./images/case-2.png" alt="">
                                 <img
-                                     onclick="R_Click_3(2);"
+                                     onclick="R_Click(2, 2);"
                                      class="inline-block cursor-pointer border-4 border-yellow-300 hover:border-yellow-400 bg-yellow-50 hover:bg-yellow-100 h-20 w-20 rounded-full" src="./images/case-3.png" alt="">
                             </div>
-                            <br />
-                            <div id="Rejan1_3"></div>
-                            <div id="Rejan2_3"></div>
-                            <div class="hover:cursor-pointer py-3 text-gray-600 leading-6">
-                                <button type="submit" class="accordionBtn flex w-full justify-center rounded-md font-bold border border-transparent bg-indigo-600 py-2 px-4 text-sm text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">じゃんけんバトル！</button>
+
+                            <div class="border-2 rounded-md bg-gray-50 border-gray-200 py-2 px-4 mb-4">
+                                <p class="text-gray-500 pb-2">status :</p>
+                                <p class="text-gray-500" id="Rejan1_2">じゃんけんボタンをクリックしてください</p>
+                                <p class="text-gray-500" id="Rejan2_2">&nbsp;</p>
                             </div>
                         </div>
                         <!-- controls -->

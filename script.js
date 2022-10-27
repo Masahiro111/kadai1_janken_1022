@@ -5,10 +5,10 @@ let total_winning_streak = 0;
 let total_winning_streak_todays_max = 0;
 let flag_winning_streak = 0;
 
-function R_Click(p_janken_r) {
-    let janken = ['グー', 'チョキ', 'パー',];//"janken"のリストを作成します。
-    let janken_r = Math.floor(Math.random() * 3);//Math.random() で乱数を作ります
-    let p_janken = ['グー', 'チョキ', 'パー'];//"プレイヤーのjanken"のリストを作成します。
+function R_Click(p_janken_r, player_id) {
+    let janken = ['グー', 'チョキ', 'パー',];  //"janken"のリストを作成します。
+    let janken_r = Math.floor(Math.random() * 3);  //Math.random() で乱数を作ります
+    let p_janken = ['グー', 'チョキ', 'パー'];  //"プレイヤーのjanken"のリストを作成します。
 
     //勝ち負けの判定機プログラムです
     if (janken_r === p_janken_r) {
@@ -28,10 +28,11 @@ function R_Click(p_janken_r) {
     }
 
     //結果を表示するためのプログラムです
-    document.getElementById("Rejan1").innerHTML = "「" + p_janken[p_janken_r] + "」&nbsp;を選択！ジャンケンの結果は …？";
-    document.getElementById("Rejan2").innerHTML = "相手は 「" + janken[janken_r] + "」。よって " + Result_end;
+    document.getElementById("Rejan1_" + player_id).innerHTML = "「" + p_janken[p_janken_r] + "」&nbsp;を選択！ジャンケンの結果は …？";
+    document.getElementById("Rejan2_" + player_id).innerHTML = "相手は 「" + janken[janken_r] + "」。よって " + Result_end;
     document.getElementById("todays-grades")
         .innerHTML = "全&nbsp;" + (total_win + total_drow + total_lose) + "&nbsp;試合&nbsp;" + total_win + "勝&nbsp;" + total_lose + "敗&nbsp;" + total_drow + "分&nbsp;<br>連勝記録：" + total_winning_streak_todays_max + "連勝！";
+    document.getElementById("todays-win-rate").innerHTML = "勝率" + (Math.floor((total_win / (total_win + total_drow + total_lose)) * 100)) + "%";
 }
 
 function win_act() {
